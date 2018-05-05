@@ -1,0 +1,3 @@
+include "core", "gradle-plugin"
+rootProject.name = 'spritesplicer'
+rootProject.children.each { it.name = rootProject.name + "-" + it.name }
