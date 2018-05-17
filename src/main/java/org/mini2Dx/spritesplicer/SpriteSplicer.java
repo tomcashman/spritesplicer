@@ -67,7 +67,7 @@ public class SpriteSplicer {
         		
         		final BufferedImage outputImage = new BufferedImage(frameWidth, frameHeight, inputImage.getType());
         		final Graphics2D graphics = outputImage.createGraphics();
-        		graphics.drawImage(inputImage, 0, 0, frameWidth, frameHeight, frameWidth * x, frameHeight * y, (frameWidth * x) + frameWidth, (frameHeight * y) + frameHeight, null);
+        		graphics.drawImage(inputImage, 0, 0, frameWidth, frameHeight, x, y, x + frameWidth, y + frameHeight, null);
         		graphics.dispose();
         		
         		final File frameFile = new File(inputImageFile.getParentFile(), inputImageName + "_" + String.format("%03d", frameCounter) + "." + inputImageExtension);
