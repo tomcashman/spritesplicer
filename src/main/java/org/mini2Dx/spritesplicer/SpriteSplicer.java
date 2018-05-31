@@ -36,6 +36,7 @@ public class SpriteSplicer {
 		options.addRequiredOption("w", "width", true, "Width of individual frame");
 		options.addRequiredOption("h", "height", true, "Height of individual frame");
 		options.addRequiredOption("i", "input", true, "Input image filepath");
+		options.addOption("p", "prefix", true, "Output image filename prefix");
 		
 		final CommandLine commandLine = new DefaultParser().parse(options, args);
 		final int frameWidth = Integer.parseInt(commandLine.getOptionValue('w'));
@@ -47,6 +48,8 @@ public class SpriteSplicer {
 		
 		final String inputImageName = inputImageFile.getName().substring(0, inputImageFile.getName().lastIndexOf('.'));
 		final String inputImageExtension = inputImageFile.getName().substring(inputImageFile.getName().lastIndexOf('.') + 1);
+		
+		final String outputImagePrefix = commandLine.getOptionValue('p') != null ? commandLine.getOptionValue('p') : inputImageName;
 		
 		if(!inputImageFile.exists()) {
 			throw new Exception("No such file " + inputImagePath);
@@ -70,7 +73,7 @@ public class SpriteSplicer {
         		graphics.drawImage(inputImage, 0, 0, frameWidth, frameHeight, x, y, x + frameWidth, y + frameHeight, null);
         		graphics.dispose();
         		
-        		final File frameFile = new File(inputImageFile.getParentFile(), inputImageName + "_" + String.format("%03d", frameCounter) + "." + inputImageExtension);
+        		final File frameFile = new File(inputImageFile.getParentFile(), outputImagePrefix + "_" + String.format("%02d", frameCounter) + "." + inputImageExtension);
         		ImageIO.write(outputImage, inputImageExtension, frameFile);
         		frameCounter++;
         		System.out.println("Writing " + frameFile.getName());
